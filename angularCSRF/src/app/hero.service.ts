@@ -14,7 +14,7 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class HeroService {
 
-  private heroesUrl = 'api/heroes';  // URL to web api
+  private heroesUrl = 'http://localhost:8080/api/heroes';  // URL to web api
 
   constructor(
     private http: HttpClient,
@@ -80,8 +80,8 @@ export class HeroService {
     const url = `${this.heroesUrl}/${id}`;
 
     return this.http.delete<Hero>(url, httpOptions).pipe(
-      tap(_ => this.log(`deleted hero id=${id}`)),
-      catchError(this.handleError<Hero>('deleteHero'))
+      //EGSM
+      tap(_ => this.log(`deleted hero id=${id}`)))//,catchError(this.handleError<Hero>('deleteHero'))
     );
   }
 
