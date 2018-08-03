@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: gateway
+    
+server:
+  port: 8090
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+        defaultZone: http://localhost:8761/eureka/
+        
+zuul:
+  prefix: /gz
+  routes:
+    heroes: /apis/**
+    mirutaestatica:
+      path: /api/**
+      url: http://localhost:8080/heroes
+    mirutaestatica1:
+      path: /ui/**
+      url: http://localhost:4200/
+
+
+#http://localhost:8090/metricas/ retornara todas las rutas
+#Las podemos habilitar todas o especificamente una a una
+#aqui las habilitamos todas, y tambien especificamente routest y shutdown
+#http://localhost:8090/metricas/routes nos devuelve las rutas que zuul tiene configuradas
+#Notar que el api prefix de zuul y el servlet context son cosas distintas. Aqui el servlet context es el por defecto /
+#Normalmente el servlet context se define en el mapping del RestController
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+    routes:
+      enabled: true
+  endpoints:
+    web:
+      base-path: /metricas
+      exposure:
+        include:
+        - "*"
+
+#httptrace
+#health
+#shutdown
+#conditions

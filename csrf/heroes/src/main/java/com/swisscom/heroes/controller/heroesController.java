@@ -16,7 +16,7 @@ import com.swisscom.hero.datasource.heroesDS;
 import com.swisscom.heroes.model.Hero;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/")
 public class heroesController {
 
 	@Autowired
