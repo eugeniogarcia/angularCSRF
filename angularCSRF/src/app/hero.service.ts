@@ -14,7 +14,7 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class HeroService {
 
-  private heroesUrl = 'http://localhost:8080/api/heroes';  // URL to web api
+  private heroesUrl = 'http://localhost:8090/gz/api';  // URL to web api
 
   constructor(
     private http: HttpClient,
@@ -107,7 +107,7 @@ export class HeroService {
       // TODO: better job of transforming error for user consumption
       this.log(`${operation} failed: ${error.message}`);
       // Let the app keep running by returning an empty result.
-      
+
       return of(result as T);
     };
   }

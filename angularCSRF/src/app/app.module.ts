@@ -1,7 +1,21 @@
 import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule}    from '@angular/common/http';
+
+//CSRF
+//Only in case we want to change the name of the cookie and header
+import{HttpClientXsrfModule} from '@angular/common/http';
+
+//Intercept the call
+//THe default HttpXsrfInterceptor in '@angular/common/http' skips absolute URLs
+//if we need them, implement a custom interceptor and replace the one included in xsrf
+import { HttpXsrfInterceptor }      from './hero.interceptor';
+//Just in case were not already using interceptors
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
+
+//CSRF
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -17,7 +31,13 @@ import { MessagesComponent }    from './messages/messages.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+//CSRF
+    //HttpClientXsrfModule
+    HttpClientXsrfModule.withOptions({
+       cookieName: 'XSRF-TOKEN', // this is optional
+       headerName: 'X-XSRF-TOKEN' // this is optional
+     })
   ],
   declarations: [
     AppComponent,
@@ -27,6 +47,15 @@ import { MessagesComponent }    from './messages/messages.component';
     MessagesComponent,
     HeroSearchComponent
   ],
+
+  //CSRF
+  providers:[
+    //This is to replace the original HttpXsrfInterceptor, so that the absolute URLs are supported
+    HttpXsrfInterceptor,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpXsrfInterceptor, multi: true }
+  ],
+  //CSRF
+
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

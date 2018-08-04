@@ -15,15 +15,23 @@ eureka:
         defaultZone: http://localhost:8761/eureka/
         
 zuul:
+  #Para permitir que los headers Cookie, Set-Cookie se propagen, y creeen, por ejemplo, la cookie necesaria para el CSRF
+  sensitiveHeaders: 
   prefix: /gz
   routes:
+#Usando los servicios de Eureka
+#http://localhost:8090/gz/apis/heroes
     heroes: /apis/**
+#http://localhost:8090/gz/p/heroes  
+    heroes_passthrough: /p/**
+#Usando una ruta estatica
+#http://localhost:8090/gz/api
     mirutaestatica:
       path: /api/**
       url: http://localhost:8080/heroes
     mirutaestatica1:
       path: /ui/**
-      url: http://localhost:4200/
+      url: http://localhost:8085/
 
 
 #http://localhost:8090/metricas/ retornara todas las rutas

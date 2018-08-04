@@ -1,9 +1,15 @@
 spring:
   application:
-    name: heroes
+    name: heroes_passthrough
     
 server:
-  port: 8080
+  port: 8085
+  servlet:
+    session:
+      cookie:
+        domain: .localhost:4200
+        http-only: true
+        path: /
         
         
 eureka:

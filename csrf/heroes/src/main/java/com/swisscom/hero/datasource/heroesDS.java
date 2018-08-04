@@ -14,7 +14,7 @@ public class heroesDS {
 		source=new ArrayList<Hero>();
 		source.add(new Hero.Builder().id(1).name("Pupa").createHero());
 		source.add(new Hero.Builder().id(2).name("Nani").createHero());
-		source.add(new Hero.Builder().id(3).name("Maussi").createHero());
+		source.add(new Hero.Builder().id(3).name("Mausi").createHero());
 		source.add(new Hero.Builder().id(4).name("Nico").createHero());
 		last=4;
 	}

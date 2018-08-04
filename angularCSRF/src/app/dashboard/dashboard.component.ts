@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -9,8 +11,13 @@ import { HeroService } from '../hero.service';
 })
 export class DashboardComponent implements OnInit {
   heroes: Hero[] = [];
+  time : Observable<string>;
 
-  constructor(private heroService: HeroService) { }
+  constructor(private heroService: HeroService) {
+    this.time = new Observable<string>(
+      observer => {setInterval(() => observer.next(new Date().toString()), 1000);return {unsubscribe(){}};}
+    );
+ }
 
   ngOnInit() {
     this.getHeroes();

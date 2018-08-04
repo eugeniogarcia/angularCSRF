@@ -76,4 +76,21 @@ public class heroesController {
 		}
 	}
 
+
+	@RequestMapping(value = "/public/heroes",produces = { "application/json" }, method = RequestMethod.POST)
+	public ResponseEntity<Hero> addPublicHero(@RequestBody Hero hero){
+		return addHero(hero);
+	}
+
+	@RequestMapping(value = "/public/heroes",produces = { "application/json" }, method = RequestMethod.PUT)
+	public ResponseEntity<Void> updatePublicHero(@RequestBody Hero hero){
+		return updateHero(hero);
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value = "/public/heroes/{id}",produces = { "application/json" },method = RequestMethod.DELETE)
+	public ResponseEntity<Void> deletePublicHero(@PathVariable int id){
+		return deleteHero(id);
+	}
+
 }
